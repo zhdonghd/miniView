@@ -1,4 +1,4 @@
-# miniView.js - An interesting web plugin !
+# MiniView.js - An interesting web plugin !
 
 I offer you a web plugin based on jquery that make a mini view of a container on your page.
 
@@ -46,4 +46,4 @@ var miniMapObject = MiniMap.init({selector:"#view"});
 
 ## refresh
 
-  param: config. just link init method.
+  param: config. just like init method.
