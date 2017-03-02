@@ -20,8 +20,8 @@ Load up `miniView.js` (after jQuery):
 Then add a container with attribute id that much larger than the parent container
 
 ```html
-<div class="borderDiv" style="width: 800px; height: 600px">
-  <div class="mainContainer" id="view" style="width: 2000px; height: 1500px; backgroud-color: #bad6cb"></div>
+<div class="borderDiv" style="width: 800px; height: 600px; overflow: hidden; border: 1px solid;">
+  <div class="mainContainer" id="view" style="width: 2000px; height: 1500px; background-color: #bad6cb"></div>
 </div>
 ```
 
