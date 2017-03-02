@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+/* minimap */
+#minimap #selectWin {
+    z-index: 9999;
+}
+#minimap #selectWin .selectionWin{
+    position: absolute;
+    background-color: white;
+    opacity: 0.5;
+}
+#minimap, #minimap #selectWin, #minimap #miniview {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+	overflow: hidden
+}
+#minimap .mainContainer{
+	transform-origin: left top 0;
+	background-color: #d2ddc6;
+}
