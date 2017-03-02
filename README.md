@@ -47,3 +47,8 @@ var miniMapObject = MiniMap.init({selector:"#view"});
 ## refresh
 
   param: config. just like init method.
+
+# Demo
+
+![image](https://github.com/zhdonghd/images/blob/master/demo.gif)
+
