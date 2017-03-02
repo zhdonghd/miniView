@@ -1,6 +1,6 @@
 # MiniView.js - An interesting web plugin !
 
-I offer you a web plugin based on jquery that make a mini view of a container on your page.
+I offer you a web plugin based on jquery that make a mini view of a container on your page. And support mousewheel zoom in.
 
 # support
 
