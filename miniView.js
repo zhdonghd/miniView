@@ -1,1 +1,126 @@
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('9 b={3:1h,2:0.1,8:1,A:m(7){4.z(7);9 3=4.3,p=["S","T","Q","o"],j="e d";h(7&&7.8)4.8=7.8;9 6=$(3).1d().I("c"),s="R("+4.2+")",t=$(3).C();L(9 i=0;i<p.E;i++){6[0].c[p[i]+"G"]=s;6[0].c[p[i]+"K"]=j}6[0].c["H"]=s;6[0].c["U"]=j;$("#w "+3+"F").1c();$("#w").1b(6.P("q",$(3).P("q")+"F").I("1f-1e"));$("#V, #Y, #w").a({v:$(3).v()*4.2,y:$(3).y()*4.2});$(".l").a({v:t.v()*4.2/4.8,y:t.y()*4.2/4.8});9 J=k($(3).a("e")),O=k($(3).a("d"));$(".l").a({e:-J*4.2/4.8,d:-O*4.2/4.8})},z:m(7){h(!7)u x;h(7.3)4.3=7.3;h(7.2)4.2=7.2;h(7.8)4.8=7.8}};9 Z=m(n,r,D,B){9 6=n.16,13=n.1l-6.1n,15=n.1o-6.1p,g=b.8,2,14=k($(6).a("e")),X=k($(6).a("d"));h(r>0&&g<1.5)2=g+0.M;N h(r<0&&g>0.5)2=g-0.M;N u x;9 p=["S","T","Q","o"],s="R("+2+")",j="e d";L(9 i=0;i<p.E;i++){6.c[p[i]+"G"]=s;6.c[p[i]+"K"]=j}6.c["H"]=s;6.c["U"]=j;9 12=13*(1-2/g),W=15*(1-2/g);$(6).a("e",14+12);$(6).a("d",X+W);b.A({8:2});u x};1m.1k={1i:m(7){b.z(7);9 3=7.3;9 t=$(3).C();t.1j(\'<f q="V">\'+\'<f q="Y">\'+\'<f 19="l"></f>\'+\'</f>\'+\'<f q="w"></f>\'+\'</f>\');$(".l").1a({18:\'C\',17:m(){9 11=k($(".l").a("e")),10=k($(".l").a("d"));$(b.3).a({e:-11/ (b.2 /b.8),d:-10/ (b.2 /b.8)})}});$(3).1g(m(n,r,D,B){Z(n,r,D,B);u x});b.A();u b}}',62,88,'||zoom|selector|this||el|config|viewZoom|var|css|miniViewObject|style|top|left|div|origZoom|if||oString|parseInt|selectionWin|function|event|||id|delta||parentDiv|return|width|miniview|false|height|getParams|refresh|deltaY|parent|deltaX|length|Mini|Transform|transform|removeAttr|selLeft|TransformOrigin|for|05|else|selTop|attr|ms|scale|webkit|moz|transformOrigin|minimap|TopDiff|elCurrTop|selectWin|setViewZoom|selectionTop|selectionLeft|leftDiff|mousePosX|elCurrLeft|mousePosY|delegateTarget|drag|containment|class|draggable|append|remove|clone|bind|data|mousewheel|null|init|after|MiniView|clientX|window|offsetLeft|clientY|offsetTop'.split('|'),0,{}))
+var miniViewObject = {
+	selector: null,
+	zoom: 0.1,
+	viewZoom: 1,
+	refresh: function(config) {
+		this.getParams(config);
+		var selector = this.selector,
+			p = ["webkit", "moz", "ms", "o"],
+			oString = "left top";
+			
+		if (config && config.viewZoom)
+			this.viewZoom = config.viewZoom;
+		
+		var el = $(selector).clone().removeAttr("style"),
+			s = "scale(" + this.zoom + ")",
+			parentDiv = $(selector).parent();
+			
+		for (var i = 0; i < p.length; i++) {
+			el[0].style[p[i] + "Transform"] = s;
+			el[0].style[p[i] + "TransformOrigin"] = oString
+		}
+		
+		el[0].style["transform"] = s;
+		el[0].style["transformOrigin"] = oString;
+		
+		$("#miniview " + selector + "Mini").remove();
+		$("#miniview").append(el.attr("id", $(selector).attr("id") + "Mini").removeAttr("data-bind"));
+		
+		//设置小地图大小
+		$("#minimap, #selectWin, #miniview").css({
+			width: $(selector).width() * this.zoom,
+			height: $(selector).height() * this.zoom
+		});
+		
+		//设置选择框大小
+		$(".selectionWin").css({
+			width: parentDiv.width() * this.zoom / this.viewZoom,
+			height: parentDiv.height() * this.zoom / this.viewZoom
+		});
+		
+		//设置选择框位置
+		var selLeft = parseInt($(selector).css("left")),
+			selTop = parseInt($(selector).css("top"));
+		$(".selectionWin").css({
+			left: -selLeft * this.zoom / this.viewZoom,
+			top: -selTop * this.zoom / this.viewZoom
+		})
+	},
+	getParams: function(config) {
+		if (!config) return false;
+		if (config.selector) this.selector = config.selector;
+		if (config.zoom) this.zoom = config.zoom;
+		if (config.viewZoom) this.viewZoom = config.viewZoom
+	}
+};
+var setViewZoom = function(event, delta, deltaX, deltaY) {
+		var el = event.delegateTarget,
+			mousePosX = event.clientX - el.offsetLeft,
+			mousePosY = event.clientY - el.offsetTop,
+			origZoom = miniViewObject.viewZoom,
+			zoom, elCurrLeft = parseInt($(el).css("left")),
+			elCurrTop = parseInt($(el).css("top"));
+			
+		if (delta > 0 && origZoom < 1.5)
+			zoom = origZoom + 0.05;
+		else if (delta < 0 && origZoom > 0.5)
+			zoom = origZoom - 0.05;
+		else
+			return false;
+		
+		var p = ["webkit", "moz", "ms", "o"],
+			s = "scale(" + zoom + ")",
+			oString = "left top";
+			
+		for (var i = 0; i < p.length; i++) {
+			el.style[p[i] + "Transform"] = s;
+			el.style[p[i] + "TransformOrigin"] = oString
+		}
+		
+		el.style["transform"] = s;
+		el.style["transformOrigin"] = oString;
+		
+		var leftDiff = mousePosX * (1 - zoom / origZoom),
+			TopDiff = mousePosY * (1 - zoom / origZoom);
+		$(el).css("left", elCurrLeft + leftDiff);
+		$(el).css("top", elCurrTop + TopDiff);
+		
+		miniViewObject.refresh({
+			viewZoom: zoom
+		});
+		
+		return false
+	};
+window.MiniView = {
+	init: function(config) {
+		miniViewObject.getParams(config);
+		var selector = config.selector;
+		var parentDiv = $(selector).parent();
+		parentDiv.after('<div id="minimap">'
+							+ '<div id="selectWin">' 
+								+ '<div class="selectionWin"></div>'
+							+ '</div>'
+							+ '<div id="miniview"></div>'
+						+ '</div>');
+		//拖拽效果				
+		$(".selectionWin").draggable({
+			containment: 'parent',
+			drag: function() {
+				var selectionLeft = parseInt($(".selectionWin").css("left")),
+					selectionTop = parseInt($(".selectionWin").css("top"));
+				$(miniViewObject.selector).css({
+					left: -selectionLeft / (miniViewObject.zoom / miniViewObject.viewZoom),
+					top: -selectionTop / (miniViewObject.zoom / miniViewObject.viewZoom)
+				})
+			}
+		});
+		
+		//滑轮滚动缩放
+		$(selector).mousewheel(function(event, delta, deltaX, deltaY) {
+			setViewZoom(event, delta, deltaX, deltaY);
+			return false
+		});
+		miniViewObject.refresh();
+		return miniViewObject
+	}
+}
