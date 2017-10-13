@@ -42,7 +42,7 @@ var miniMapObject = MiniMap.init({selector:"#view"});
 `selector`             | Jquery selector with id attribute
 `zoom`                 | Scale value of the mini map. default value 0.1
 `viewZoom`             | Scale value of the container. default value 1
-`isEnableMouseWheel`   | Where enable mousewheel to zoom the container
+`isEnableMouseWheel`   | Whether enable mousewheel to zoom the container
 
 ## refresh
 
